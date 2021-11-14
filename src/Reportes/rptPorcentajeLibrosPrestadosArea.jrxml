@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="adde79e3-754d-4b66-bc40-68c80368feb2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="conexion2" uuid="ef62234e-5f15-4242-ad99-ae6ecb8ebce1">
+		<queryString>
+			<![CDATA[select a.nombre, count(*) as cantidad, (avg(((select count(*) from detalle_prestamo as dpe inner join prestamo as pre on pre.codigopre = dpe.codigopre inner join libro as lib on  lib.isbn = dpe.isbn inner join area as are on are.codigoare = lib.codigoare where are.codigoare = a.codigoare)*100)/(select count(*) from detalle_prestamo as dpre inner join prestamo as pres on pres.codigopre = dpre.codigopre inner join libro as li on  li.isbn = dpre.isbn inner join area as ar on ar.codigoare = li.codigoare))::float) as porcentaje from detalle_prestamo as dp inner join prestamo as p on p.codigopre = dp.codigopre inner join libro as l on  l.isbn = dp.isbn inner join area as a on a.codigoare = l.codigoare group by a.nombre;]]>
+		</queryString>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="cantidad" class="java.lang.Long"/>
+		<field name="porcentaje" class="java.lang.Double"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[select l.titulo, a.nombre, (select extract(year from p.fechapre)) as fecha, count(*) as cantidad from detalle_prestamo as dp inner join prestamo as p on p.codigopre = dp.codigopre inner join libro as l on  l.isbn = dp.isbn inner join area as a on a.codigoare = l.codigoare where (select extract(year from p.fechapre)) = (select extract(year from current_date)) group by a.nombre, l.titulo, fecha order by 4 desc;]]>
+	</queryString>
+	<field name="titulo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.Double"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="55" uuid="8881e2e7-24e1-409b-af71-bd4cfe1afad7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reportes de porcentaje de libros prestados por áreas del año]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="264" y="31" width="39" height="38" uuid="59743d63-0a82-4f7a-89da-e37e9b826d90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="553" height="50" backcolor="#536DFE" uuid="e903f4e5-14a7-4bd6-90e2-541cef6a4eba"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="50" uuid="ac42ee43-6250-4f12-afbb-37d23b427530"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[TÍTULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="200" height="50" uuid="10e89481-3180-4eb2-9409-ba169cd78df6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[ÁREA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="83" height="50" uuid="8ba509cd-b2d1-49ae-84af-51d4ea5045d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="70" height="50" uuid="df883821-3c3d-4d9e-b89f-0b091273ae06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="40" width="551" height="1" forecolor="#536DFE" backcolor="#536DFE" uuid="eb78479a-0670-4d70-a50d-d3e93be3ec06"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="2" y="10" width="200" height="20" uuid="64473fa4-248a-4784-94e5-5baabd399232"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="202" y="10" width="200" height="20" uuid="eb7da041-b02d-4acb-a781-442849c95f7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="10" width="85" height="20" uuid="d8cae3e7-833c-4160-b0fb-5e477fe478b2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="402" y="10" width="68" height="20" uuid="67d0a255-712c-4e6d-be62-8e19c03555d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="39" y="15" width="185" height="20" uuid="8bf94437-6d89-4493-a26a-92a4b2521958"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="15" width="100" height="20" uuid="74bc6859-8f18-49c5-b6ef-418720822e0a"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="15" width="37" height="20" uuid="115da415-179a-49c4-b938-3faae7b7b71a"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="270" splitType="Stretch">
+			<pie3DChart>
+				<chart>
+					<reportElement x="24" y="31" width="500" height="225" uuid="25927dfb-9024-4c15-962e-e700a8a43d43"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="conexion2" uuid="d44206fb-df72-44a9-9384-229c8bbdbb01"/>
+					</dataset>
+					<keyExpression><![CDATA[$F{nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{porcentaje}]]></valueExpression>
+					<labelExpression><![CDATA[$F{porcentaje}.toString() + "%"]]></labelExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
+					<itemLabel/>
+				</pie3DPlot>
+			</pie3DChart>
+		</band>
+	</summary>
+</jasperReport>

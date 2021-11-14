@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37d5b038-00be-4488-9772-59b6644a6c1d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select dnilector, nombre || ' ' || apellidos as nombre_completo, fechanac,case vigencia when 'true' then 'Vigente' else 'No vigente' end,case sexo when 'M' then 'Masculino' else 'Femenino' end as Sexo from lector;]]>
+	</queryString>
+	<field name="dnilector" class="java.lang.String"/>
+	<field name="nombre_completo" class="java.lang.String"/>
+	<field name="fechanac" class="java.sql.Date"/>
+	<field name="case" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="3f7a02fc-6673-4dda-ae22-56dba30601cd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte lectores]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="50" backcolor="#536DFE" uuid="82fb19d7-a1b4-4b88-abf2-4a878d014179"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="50" uuid="5618abe9-19a5-4cda-b45e-8456767f977c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="50" uuid="f83731b3-481b-4573-a05e-05a3235d16d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[NOMBRE COMPLETO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="50" uuid="98da67af-a700-48ab-b273-02dae1fb1d38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[FECHA DE NACIMIENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="50" uuid="8cf44cbb-8ca0-415c-a1e7-30b2c3425517"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[VIGENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="50" uuid="c8602144-3c3e-44be-9278-a7f754b36082"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[SEXO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="41" width="555" height="1" forecolor="#536DFE" uuid="3d7a3817-007d-464d-bec2-5ba06e6f923c"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="11" width="111" height="20" uuid="f2ce74ee-e9ce-481d-84da-219334046baf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dnilector}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="11" width="111" height="20" uuid="b7a7b115-b054-4317-896d-0413b1c4dcd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_completo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="222" y="11" width="111" height="20" uuid="304f6a89-ec7b-4aca-8cfc-a138e98ece70"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechanac}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="11" width="111" height="20" uuid="e6ab3534-88e4-40ec-946f-1e7563e750c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{case}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="11" width="111" height="20" uuid="97837f0a-f0be-4a2d-9ce8-161f7e2d8725"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="12" width="100" height="20" uuid="e2ad4e17-a9c3-46df-a1f7-b9c94fe70a1c"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="12" width="41" height="20" uuid="72cbdc10-23f6-41b1-b0e9-bdfa1d57582d"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="41" y="12" width="185" height="20" uuid="77f85226-e34a-437a-be96-ba8b3da47b65"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

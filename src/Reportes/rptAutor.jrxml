@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b14ec17-6e23-4d3a-a713-3dd31b8c6140">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from autor]]>
+	</queryString>
+	<field name="codigoaut" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellidos" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="24" y="0" width="500" height="79" uuid="d31b2e69-13fa-4b46-b9d1-1ebfb331f720"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reportes de autor]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="24" y="0" width="500" height="50" backcolor="#536DFE" uuid="b31178f7-5473-4020-94be-42749f3933ac"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="24" y="0" width="165" height="50" uuid="3ebb13d0-1ac2-4402-9c69-6a6ee02d739d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="0" width="165" height="50" uuid="96c770a3-eaf2-45de-8c46-9c54d6305f36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="359" y="0" width="165" height="50" uuid="f080b674-60c3-4912-832c-624cd891a45f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[APELLIDOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="24" y="10" width="165" height="20" uuid="e7d37b0a-0ef3-4668-9a40-ed3beb02ca94"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoaut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="10" width="165" height="20" uuid="464a8d6a-8de8-40d6-ab7b-b78f85fb2f63"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="10" width="165" height="20" uuid="2aac3064-57aa-4629-a293-003b95a988ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="24" y="40" width="500" height="1" forecolor="#536DFE" backcolor="#536DFE" uuid="c367acbe-3ca2-4233-8831-edcd8cb2b18d"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="6" width="100" height="20" uuid="8a0a55ec-a071-49c1-8172-b8dd85ed7246"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="6" width="37" height="20" uuid="e2f33878-3a79-4755-814a-96051dc333c2"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="61" y="6" width="185" height="20" uuid="95e29e70-7e1c-4e4e-94d4-38aeede76599"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

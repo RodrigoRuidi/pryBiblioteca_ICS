@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98d4f374-71ad-4cf4-af57-543b327dd9e1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ano" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select extract(month from fechapre) as orden, to_char(fechapre, 'TMMonth') as mes, (select extract(year from fechapre))::int as ano, count(*) as cantidad from prestamo where (select extract(year from fechapre)) = $P{ano} group by (to_char(fechapre, 'TMMonth')), orden, (select extract(year from fechapre)) order by 1;]]>
+	</queryString>
+	<field name="orden" class="java.lang.Double"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="ano" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="501" height="79" uuid="cd2a199a-cfcd-4b1a-a24e-958078a749d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de préstamos por cada mes del año]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="436" y="27" width="100" height="25" uuid="3d1fe026-5c08-467b-907b-92671bb98cc4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="51" y="0" width="450" height="50" backcolor="#536DFE" uuid="c53ee247-867b-49e8-9cd2-3271c97ca643"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="275" y="0" width="114" height="50" uuid="1a12c758-db5d-4da3-914f-a71453bf2de1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="0" width="112" height="50" uuid="917b82bc-862b-42ad-8acb-21aaabbc117c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="0" width="112" height="50" uuid="fc0ec22a-cdc2-4d5b-91e1-68d9555a6e25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[NÚMERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="0" width="112" height="50" uuid="a982aa9b-fde1-4dbf-b177-09f30f5a2801"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[AÑO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField>
+				<reportElement x="275" y="8" width="114" height="20" uuid="44e7a1ae-6fd9-4ff3-8c2a-25d9f39871cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="8" width="112" height="20" uuid="8ec53438-6489-43bd-8b47-4526837bd314"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="51" y="39" width="450" height="1" forecolor="#536DFE" uuid="d2f2c948-2530-4640-9493-36b8cc87607d"/>
+			</line>
+			<textField>
+				<reportElement x="163" y="8" width="112" height="20" uuid="135509b8-d8c5-4759-b861-218fc46f000c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orden}.intValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="51" y="8" width="112" height="20" uuid="255944ac-6315-48ba-9b8c-19886ea7fb40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="401" y="16" width="100" height="20" uuid="aa908466-08db-4095-bab0-b6ee8ed2a937"/>
+				<textElement textAlignment="Right">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="51" y="16" width="42" height="20" uuid="18f969bf-abd8-453f-8b2b-bf1d98a233a1"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="93" y="16" width="143" height="20" uuid="452ccb8c-871c-411c-aab5-4db0f354459a"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="183" splitType="Stretch">
+			<lineChart>
+				<chart isShowLegend="false" theme="default">
+					<reportElement x="51" y="13" width="450" height="160" backcolor="#FFFFFF" uuid="1b10044d-74d0-49e5-a944-39f824090ae6"/>
+					<chartTitle color="#000000">
+						<font fontName="Poppins" size="16"/>
+						<titleExpression><![CDATA["Préstamos por mes"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend textColor="#000000"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[""]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+						<labelExpression><![CDATA[$F{cantidad}.toString()]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot isShowLines="true" isShowShapes="true">
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat verticalTickLabels="true"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat verticalTickLabels="true"/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>

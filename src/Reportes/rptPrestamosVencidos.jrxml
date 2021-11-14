@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a0a6e6e-5e6f-4fc3-ac62-507740ea7cb4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ano" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mes" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.codigopre, p.fechapre, l.nombre || ' ' || l.apellidos as lector, (current_date - fechapre) as diferencia, ((current_date - fechapre) - 7) as diasmora, to_char(fechapre, 'TMMonth') as mes from prestamo as p inner join lector as l on l.dnilector = p.dnilector where p.estado = true and (current_date - p.fechapre) > 7 and (select extract(year from p.fechapre)) = $P{ano} and (select extract(month from p.fechapre)) = $P{mes};]]>
+	</queryString>
+	<field name="codigopre" class="java.lang.Integer"/>
+	<field name="fechapre" class="java.sql.Date"/>
+	<field name="lector" class="java.lang.String"/>
+	<field name="diferencia" class="java.lang.Integer"/>
+	<field name="diasmora" class="java.lang.Integer"/>
+	<field name="mes" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="28" y="0" width="421" height="55" uuid="970d4b03-06b5-4626-aff4-4b3292b1ffea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reportes de prestamos vencidos del mes de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="40" width="100" height="26" uuid="4a5a7d3e-b859-45ce-833d-986e0a38f25f"/>
+				<textElement>
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[del año ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="292" y="33" width="51" height="38" uuid="4214e275-60f0-49a4-b6cd-2861a779a08c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="14" width="100" height="27" uuid="dc903e4c-f236-4152-b6c5-e1f4521b534e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Poppins" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="28" y="0" width="500" height="50" backcolor="#536DFE" uuid="14365f24-40b0-4de7-8c3f-722642531faa"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="28" y="0" width="100" height="50" uuid="ce4234f2-a075-4467-92a1-a480e37805f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="100" height="50" uuid="2073d1bb-26fd-4f6f-b39a-b971654f0b12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="0" width="200" height="50" uuid="237e0853-d608-49bd-94c1-9c89ec4be60a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[LECTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="0" width="50" height="50" uuid="51d7dedb-4b3c-40c1-b1e8-64224da47c38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[DÍAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="478" y="0" width="50" height="50" uuid="e159d675-eac8-40fe-a410-94b07a92d8ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[DÍAS MORA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement x="28" y="40" width="500" height="1" forecolor="#536DFE" backcolor="#536DFE" uuid="f7c7b032-afc3-4ae5-8a51-589f94098ac4"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="28" y="10" width="100" height="20" uuid="c632d554-dd29-4728-b4fd-8622ed34ef57"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigopre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="128" y="10" width="100" height="20" uuid="2eb686d3-6185-46e0-8de2-17256ee7097d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fechapre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="10" width="200" height="20" uuid="02c9084a-1448-41c3-9f54-eb0d4c741bcc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lector}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="10" width="50" height="20" uuid="348dc05a-a241-4fcc-bb73-c77bea956894"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diferencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="10" width="50" height="20" uuid="a6d1bcd0-ae26-4333-82ae-36f2cc21877d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diasmora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="65" y="19" width="185" height="20" uuid="b34aa978-c4ad-4240-953d-baa6206d1f05"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="19" width="37" height="20" uuid="d810b6ee-c161-47c2-98d0-7bed5c5ee61c"/>
+				<textElement>
+					<font fontName="Poppins"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="428" y="19" width="100" height="20" uuid="091fdf3a-2197-41ad-ba28-c4d660de654b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Poppins"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
