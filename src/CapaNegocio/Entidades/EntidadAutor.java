@@ -8,6 +8,7 @@ public class EntidadAutor {
 
     private int codigoaut;
     private String nombre, apellidos;
+    private Boolean estado;
 
     public EntidadAutor() {
 
@@ -17,16 +18,11 @@ public class EntidadAutor {
         return nombre + " " + apellidos;
     }
 
-    public EntidadAutor(String nombre, String apellidos) {
-        this.codigoaut = 0;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-    }
-
-    public EntidadAutor(int codigoaut, String nombre, String apellidos) {
+    public EntidadAutor(int codigoaut, String nombre, String apellidos, Boolean estado) {
         this.codigoaut = codigoaut;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.estado = estado;
     }
 
     public int getCodigoaut() {
@@ -52,5 +48,15 @@ public class EntidadAutor {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    
 
 }

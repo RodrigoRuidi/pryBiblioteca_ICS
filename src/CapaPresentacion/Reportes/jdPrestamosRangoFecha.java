@@ -9,6 +9,7 @@ import CapaNegocio.clsReporte;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -29,6 +30,7 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
     public jdPrestamosRangoFecha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        validarFecha();
     }
 
     /**
@@ -42,11 +44,11 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
 
         VistaReporte = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
-        txtFechaFin = new javax.swing.JFormattedTextField();
-        txtFechaInicio = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jdcFechaI = new com.toedter.calendar.JDateChooser();
+        jdcFechaF = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,24 +65,10 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        try {
-            txtFechaFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFechaFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFechaFin.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-
-        try {
-            txtFechaInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFechaInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFechaInicio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel1.setText("Fecha Fin:");
 
+        jLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel2.setText("Fecha Inicio:");
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
@@ -92,20 +80,24 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
             }
         });
 
+        jdcFechaI.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
+        jdcFechaF.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(226, Short.MAX_VALUE)
+                .addContainerGap(166, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jdcFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jdcFechaF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -114,15 +106,16 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jdcFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addComponent(jdcFechaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(22, 22, 22))
         );
 
@@ -149,24 +142,39 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
             VistaReporte.removeAll();
             Container contenedor = this.VistaReporte;
             contenedor.setLayout(new BorderLayout());
-            
+
             //Agregando parametros
-            Map<String,Object> param = new HashMap<>();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date fechaI  = sdf.parse(txtFechaInicio.getText());
-            Date fechaF = sdf.parse(txtFechaFin.getText());
-            param.put("fechainicio", fechaI);
-            param.put("fechafin", fechaF);
+            Map<String, Object> param = new HashMap<>();
+
+            Date fechaI = jdcFechaI.getDate();
+            long fi = fechaI.getTime();
+            java.sql.Date fechaInicio = new java.sql.Date(fi);
             
+            Date fechaF = jdcFechaF.getDate();
+            long ff = fechaF.getTime();
+            java.sql.Date fechaFin = new java.sql.Date(ff);
+
+            param.put("fechainicio", fechaInicio);
+            param.put("fechafin", fechaFin);
+
             Locale locale = new Locale("es");
             param.put(JRParameter.REPORT_LOCALE, locale);
-            JRViewer vistaRPT= new clsReporte().reporteInterno("rptPrestamosRangoFecha.jasper", param);
+            JRViewer vistaRPT = new clsReporte().reporteInterno("rptPrestamosRangoFecha.jasper", param);
             contenedor.add(vistaRPT);
             this.VistaReporte.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-        } 
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void validarFecha() {
+        Calendar fechaA = Calendar.getInstance();
+        Locale locale = new Locale("es", "PE");
+        jdcFechaI.setLocale(locale);
+        jdcFechaF.setLocale(locale);
+        jdcFechaF.setMaxSelectableDate(fechaA.getTime());
+        jdcFechaI.setMaxSelectableDate(fechaA.getTime());
+    }
 
     /**
      * @param args the command line arguments
@@ -216,7 +224,7 @@ public class jdPrestamosRangoFecha extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JFormattedTextField txtFechaFin;
-    private javax.swing.JFormattedTextField txtFechaInicio;
+    private com.toedter.calendar.JDateChooser jdcFechaF;
+    private com.toedter.calendar.JDateChooser jdcFechaI;
     // End of variables declaration//GEN-END:variables
 }

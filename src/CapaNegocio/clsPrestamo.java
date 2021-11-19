@@ -157,6 +157,19 @@ public class clsPrestamo extends EntidadPrestamo {
             throw new Exception("Error en prestamos vencidos");
         }
     }
+    
+    public Boolean prestamosactivos() throws Exception{
+        try {
+            SQL = "select * from prestamo where dnilector = '" + super.getDnilector() + "' and estado = true";
+            rs = objC.consultarBD(SQL);           
+            if (rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            throw new Exception("Error en prestamos activos");
+        }
+    }
 
     public ArrayList<String> buscarDetallePrestamo(int codigopre) throws Exception {
         try {
@@ -244,7 +257,7 @@ public class clsPrestamo extends EntidadPrestamo {
             rs = objC.consultarBD(SQL);
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("CÓDIGO");
-            modelo.addColumn("FECHA PRESTAMO");
+            modelo.addColumn("FECHA");
             modelo.addColumn("MORA");
             modelo.addColumn("MULTA");
             modelo.addColumn("LIBRO");
@@ -259,8 +272,8 @@ public class clsPrestamo extends EntidadPrestamo {
                 for (int i = 0; i < datos.length; i++) {
                     datos[0] = rs.getInt(1);
                     datos[1] = rs.getDate(2);
-                    datos[2] = rs.getString(3).equalsIgnoreCase("true") ? "Moroso" : "Sin mora";
-                    datos[3] = rs.getString(4).equalsIgnoreCase("true") ? "Multado" : "Sin multa";
+                    datos[2] = rs.getString(3).equalsIgnoreCase("t") ? "Moroso" : "Sin mora";
+                    datos[3] = rs.getString(4).equalsIgnoreCase("t") ? "Multado" : "Sin multa";
                     datos[4] = rs.getString(5);
                     datos[5] = rs.getString(6);
                 }

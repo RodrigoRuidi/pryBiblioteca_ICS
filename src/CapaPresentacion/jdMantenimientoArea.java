@@ -161,7 +161,7 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
         btnEliminar.setBackground(new java.awt.Color(236, 78, 32));
         btnEliminar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setText("Dar de baja");
         btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(236, 78, 32)));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,7 +310,7 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminar();
+        darBaja();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -427,21 +427,21 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
         }
     }
 
-    private void eliminar() {
+    private void darBaja() {
         try {
             if (txtCodigo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el código del área a eliminar");
+                JOptionPane.showMessageDialog(this, "Ingrese el código del área a dar de baja");
             } else {
-                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar el área ?");
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja el área ?");
                 objA.setCodigoare(Integer.parseInt(txtCodigo.getText()));
                 EntidadArea Area = objA.consultarArea();
 
                 if (Area != null) {
                     if (confirmacion == 0) {
 
-                        Boolean res = objA.eliminar();
+                        Boolean res = objA.darBaja();
                         if (res) {
-                            JOptionPane.showMessageDialog(this, "Se eliminó correctamente el área");
+                            JOptionPane.showMessageDialog(this, "Se dió de baja correctamente el área");
                             listar();
                             limpiar();
                         }

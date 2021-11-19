@@ -82,6 +82,19 @@ public class clsUsuario extends EntidadUsuario {
             throw new Exception(e.getMessage());
         }
     }
+    
+    public int generarCodigo() throws Exception{
+        try {
+            SQL = "select coalesce(max(codigousu), 0) + 1 from usuario";
+            rs = objC.consultarBD(SQL);
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return 0;
+    }
 
     public void registarUsuario() throws Exception {
         try {

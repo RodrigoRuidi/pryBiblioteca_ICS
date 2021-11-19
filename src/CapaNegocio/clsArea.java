@@ -90,9 +90,9 @@ public class clsArea extends EntidadArea {
         }
     }
 
-    public Boolean eliminar() throws Exception {
+    public Boolean darBaja() throws Exception {
         try {
-            SQL = "delete from area where codigoare = " + super.getCodigoare();
+            SQL = "update area set vigencia = false where codigoare = " + super.getCodigoare();
             objC.ejecutarBD(SQL);
             return true;
         } catch (Exception e) {

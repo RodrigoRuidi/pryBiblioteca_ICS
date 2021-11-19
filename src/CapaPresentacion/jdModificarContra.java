@@ -64,7 +64,7 @@ public class jdModificarContra extends javax.swing.JDialog {
         jLabel1.setText("Usuario:");
 
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel2.setText("Pregunta secreta:");
+        jLabel2.setText("Respuesta secreta:");
 
         txtRespuesta.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         txtRespuesta.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));

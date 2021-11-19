@@ -88,9 +88,9 @@ public class clsEditorial extends EntidadEditorial {
         }
     }
 
-    public Boolean eliminar() throws Exception {
+    public Boolean darBaja() throws Exception {
         try {
-            SQL = "delete from editorial where codigoedi = " + super.getCodigoedi();
+            SQL = "update editorial set vigencia = false where codigoedi = " + super.getCodigoedi();
             objC.ejecutarBD(SQL);
             return true;
         } catch (Exception e) {

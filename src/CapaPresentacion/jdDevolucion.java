@@ -506,6 +506,7 @@ public class jdDevolucion extends javax.swing.JDialog {
             System.out.println("El codigo de prestamo en actualizar: " + codigop);
             listarPagos(Integer.parseInt(codigop));
             listarPrestamos();
+
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -521,8 +522,10 @@ public class jdDevolucion extends javax.swing.JDialog {
                 if (lector != null) {
                     txtNombre.setText(lector.getNombre() + " " + lector.getApellidos());
                     objP = new clsPrestamo();
+                    objP.verificarmora(tblPrestamos, txtFecha.getText());
                     objP.setDnilector(txtDNI.getText());
                     objP.listarPrestamosxCliente(tblPrestamos);
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "El lector no existe");
                 }
@@ -539,6 +542,10 @@ public class jdDevolucion extends javax.swing.JDialog {
             objP.listarPrestamos(tblPrestamos);
             objP.verificarmora(tblPrestamos, txtFecha.getText());
             objP.listarPrestamos(tblPrestamos);
+            if (!txtDNI.getText().isEmpty()) {
+                objP.setDnilector(txtDNI.getText());
+                objP.listarPrestamosxCliente(tblPrestamos);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -658,8 +665,8 @@ public class jdDevolucion extends javax.swing.JDialog {
 
                     objD.insertarDevolucion(isbnes);
                     JOptionPane.showMessageDialog(this, "Se devolvió el libro");
-                    listarPrestamos();
                     limpiar();
+                    listarPrestamos();
                 }
             }
 

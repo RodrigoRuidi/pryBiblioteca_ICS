@@ -10,8 +10,11 @@ import CapaNegocio.Entidades.EntidadPrestamo;
 import CapaNegocio.clsLector;
 import CapaNegocio.clsPrestamo;
 import java.awt.Toolkit;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -32,6 +35,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
         setTitle("Mantenimiento lector");
         listarLector();
         limpiar();
+        validarFecha();
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
@@ -68,7 +72,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
         cboSexo = new javax.swing.JComboBox<>();
         jcbVigencia = new javax.swing.JCheckBox();
         btnBuscar = new javax.swing.JButton();
-        txtFechaNac = new javax.swing.JFormattedTextField();
+        jdcFechaNac = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -252,13 +256,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
             }
         });
 
-        try {
-            txtFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtFechaNac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtFechaNac.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jdcFechaNac.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -291,8 +289,8 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtFechaNac, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cboSexo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(cboSexo, javax.swing.GroupLayout.Alignment.LEADING, 0, 140, Short.MAX_VALUE)
+                                        .addComponent(jdcFechaNac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
@@ -306,7 +304,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
                                     .addComponent(jLabel7)
                                     .addGap(18, 18, 18)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,9 +327,9 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -490,8 +488,10 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
                     txtNombres.setText(lector.getNombre());
                     txtApellidos.setText(lector.getApellidos());
 
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                    txtFechaNac.setText(formatoFecha.format(lector.getFechanac()));
+                    Date fechaN = lector.getFechanac();
+                    long fi = fechaN.getTime();
+                    java.sql.Date fechanac = new java.sql.Date(fi);
+                    jdcFechaNac.setDate(fechanac);
 
                     cboSexo.setSelectedItem(lector.getSexo().equalsIgnoreCase("M") ? "Masculino" : "Femenino");
                     txtDireccion.setText(lector.getDireccion());
@@ -628,18 +628,25 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
         txtDNI.setText("");
         txtNombres.setText("");
         txtApellidos.setText("");
-        txtFechaNac.setValue(null);
+        jdcFechaNac.setCalendar(null);
         cboSexo.setSelectedIndex(0);
         txtDireccion.setText("");
         txtTelefono.setText("");
         jcbVigencia.setSelected(true);
-        
+
         btnNuevo.setText("Nuevo");
         txtDNI.requestFocus();
         jcbVigencia.setEnabled(false);
         txtDNI.setEnabled(true);
         btnNuevo.setEnabled(true);
         deshabilitar();
+    }
+    
+    public void validarFecha(){        
+        Calendar fechaA = Calendar.getInstance();
+        Locale locale = new Locale("es", "PE");
+        jdcFechaNac.setLocale(locale);
+        jdcFechaNac.setMaxSelectableDate(fechaA.getTime());
     }
 
     private void setear() {
@@ -650,8 +657,10 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
             objL.setNombre(txtNombres.getText());
             objL.setApellidos(txtApellidos.getText());
 
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-            objL.setFechanac(formatoFecha.parse(txtFechaNac.getText()));
+            Date fechaN = jdcFechaNac.getDate();
+            long fn = fechaN.getTime();
+            java.sql.Date fechaNacimiento = new java.sql.Date(fn);
+            objL.setFechanac(fechaNacimiento);
 
             objL.setSexo(cboSexo.getSelectedItem().toString().equalsIgnoreCase("Masculino") ? "M" : "F");
             objL.setDireccion(txtDireccion.getText());
@@ -706,7 +715,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
     }
 
     private Boolean validarLlenado() {
-        if (txtDNI.getText().isEmpty() || txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtFechaNac.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+        if (txtDNI.getText().isEmpty() || txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtTelefono.getText().isEmpty() || jdcFechaNac.getDate() == null) {
             return true;
         } else {
             return false;
@@ -716,7 +725,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
     private void habilitar() {
         txtNombres.setEditable(true);
         txtApellidos.setEditable(true);
-        txtFechaNac.setEditable(true);
+        jdcFechaNac.setEnabled(true);
         cboSexo.setEnabled(true);
         txtDireccion.setEditable(true);
         txtTelefono.setEditable(true);
@@ -727,7 +736,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
     private void deshabilitar() {
         txtNombres.setEditable(false);
         txtApellidos.setEditable(false);
-        txtFechaNac.setEditable(false);
+        jdcFechaNac.setEnabled(false);
         cboSexo.setEnabled(false);
         txtDireccion.setEditable(false);
         txtTelefono.setEditable(false);
@@ -799,11 +808,11 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JCheckBox jcbVigencia;
+    private com.toedter.calendar.JDateChooser jdcFechaNac;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JFormattedTextField txtFechaNac;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

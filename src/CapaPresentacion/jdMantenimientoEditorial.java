@@ -153,7 +153,7 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
         btnEliminar.setBackground(new java.awt.Color(236, 78, 32));
         btnEliminar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setText("Dar de baja");
         btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(236, 78, 32), 2));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -329,7 +329,7 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminar();
+        darBaja();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -420,21 +420,21 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
         }
     }
 
-    private void eliminar() {
+    private void darBaja() {
         try {
             if (txtCodigo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el código de la editorial a eliminar");
+                JOptionPane.showMessageDialog(this, "Ingrese el código de la editorial a dar de baja");
             } else {
-                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar la editorial ?");
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja la editorial ?");
                 objE.setCodigoedi(Integer.parseInt(txtCodigo.getText()));
                 EntidadEditorial Editorial = objE.consultarEditorial();
 
                 if (Editorial != null) {
 
                     if (confirmacion == 0) {
-                        Boolean res = objE.eliminar();
+                        Boolean res = objE.darBaja();
                         if (res) {
-                            JOptionPane.showMessageDialog(this, "Se eliminó correctamente el editorial");
+                            JOptionPane.showMessageDialog(this, "Se dió de baja correctamente el editorial");
                             listar();
                             limpiar();
                         }

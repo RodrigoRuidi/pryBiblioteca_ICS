@@ -40,6 +40,7 @@ public class clsLibro extends EntidadLibro {
                 objEL.setEdicion(rs.getInt(4));
                 objEL.setCodigoedi(rs.getInt(5));
                 objEL.setCodigoare(rs.getInt(6));
+                objEL.setNumejemplar(rs.getInt(7));
             }
 
             return objEL;

@@ -500,6 +500,8 @@ public class jdPrestamo extends javax.swing.JDialog {
                             vencido = true;
                         }
                     }
+                    
+                    Boolean activo = objP.prestamosactivos();
 
                     if (vencido) {
                         int confirmacion = JOptionPane.showConfirmDialog(this, "Usted cuenta con un prestamo vencido. ¿Desea devolver el libro?");
@@ -513,7 +515,20 @@ public class jdPrestamo extends javax.swing.JDialog {
                             txtDNI.requestFocus();
                         }
                     } else {
-                        txtNombre.setText(lector.getNombre() + " " + lector.getApellidos());
+                        if (activo) {
+                            int confirmacion = JOptionPane.showConfirmDialog(this, "Usted cuenta con un prestamo activo. ¿Desea devolver el libro?");
+                            if (confirmacion == 0) {
+                                jdDevolucion objDev = new jdDevolucion(null, true);
+                                jdDevolucion.dniLectorPV = txtDNI.getText();
+                                objDev.buscarLectorPV();
+                                objDev.setVisible(true);
+                            } else {
+                                txtDNI.setText("");
+                                txtDNI.requestFocus();
+                            }
+                        } else {
+                            txtNombre.setText(lector.getNombre() + " " + lector.getApellidos());
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "El lector no existe");

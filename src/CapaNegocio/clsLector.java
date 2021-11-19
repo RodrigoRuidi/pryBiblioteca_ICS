@@ -166,7 +166,7 @@ public class clsLector extends EntidadLector {
                     datos[1] = rs.getString(2);
                     datos[2] = rs.getString(3);
                     datos[3] = rs.getDate(4);
-                    datos[4] = rs.getBoolean(5);
+                    datos[4] = rs.getString(5).equalsIgnoreCase("t") ? "Vigente" : "No vigente";
                     datos[5] = rs.getString(6);
                     datos[6] = rs.getString(7);
                     datos[7] = rs.getString(8).equalsIgnoreCase("M") ? "Masculino" : "Femenino";

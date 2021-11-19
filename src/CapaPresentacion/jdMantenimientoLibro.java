@@ -16,6 +16,7 @@ import CapaNegocio.clsEditorial;
 import CapaNegocio.clsLibro;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -36,6 +37,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         setTitle("Mantenimiento de libro");
         setResizable(true);
         setLocationRelativeTo(null);
+        validarAno();
         listar();
         deshabilitar();
     }
@@ -53,7 +55,6 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtAno = new javax.swing.JTextField();
         cboEditorial = new javax.swing.JComboBox<>();
         cboArea = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
@@ -72,6 +73,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         btnAgregarAutor = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jspEjemplares = new javax.swing.JSpinner();
+        jycAno = new com.toedter.calendar.JYearChooser();
         btnNuevo = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -121,13 +123,6 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
 
         jLabel6.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jLabel6.setText("Área:");
-
-        txtAno.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtAno.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAnoKeyTyped(evt);
-            }
-        });
 
         cboEditorial.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cboEditorial.addItemListener(new java.awt.event.ItemListener() {
@@ -260,6 +255,8 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         jspEjemplares.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jspEjemplares.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        jycAno.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -299,14 +296,14 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
                                     .addComponent(btnMantenimientoE, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jspEdicion, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtAno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                                     .addComponent(jspEjemplares, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnBuscar)))
+                                        .addComponent(btnBuscar))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jycAno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jspEdicion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -323,10 +320,10 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jycAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jspEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +345,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jspEjemplares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -400,7 +397,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         txtTotalEjemplares.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel9.setText("Total de ejemplares:");
+        jLabel9.setText("Total de libros:");
 
         btnListarxEditorial.setBackground(new java.awt.Color(255, 255, 255));
         btnListarxEditorial.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -597,11 +594,6 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         limiteCaracteres(evt, txtISBN.getText(), 10);
     }//GEN-LAST:event_txtISBNKeyTyped
 
-    private void txtAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnoKeyTyped
-        validarNumeros(evt);
-        limiteCaracteres(evt, txtISBN.getText(), 4);
-    }//GEN-LAST:event_txtAnoKeyTyped
-
     private void btnListarxEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarxEditorialActionPerformed
 
         try {
@@ -643,7 +635,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
                 if (Libro != null) {
                     txtISBN.setText(Libro.getIsbn());
                     txtTitulo.setText(Libro.getTitulo());
-                    txtAno.setText(String.valueOf(Libro.getFechapub()));
+                    jycAno.setYear(Libro.getFechapub());
                     jspEdicion.setValue(Libro.getEdicion());
 
                     clsEditorial objE = new clsEditorial();
@@ -655,6 +647,8 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
                     objA.setCodigoare(Libro.getCodigoare());
                     EntidadArea area = objA.consultarArea();
                     cboArea.getModel().setSelectedItem(area);
+                    
+                    jspEjemplares.setValue(Libro.getNumejemplar());
 
                     consultarAutoria(Libro.getIsbn());
 
@@ -849,7 +843,10 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
     private void limpiar() {
         txtISBN.setText("");
         txtTitulo.setText("");
-        txtAno.setText("");
+        
+        Calendar calendar = Calendar.getInstance();        
+        jycAno.setYear(calendar.get(Calendar.YEAR));
+                
         jspEdicion.setValue(1);
         jspEjemplares.setValue(1);
         llenarCombos();
@@ -866,17 +863,22 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         }
 
     }
+    
+    private void validarAno(){
+        Calendar calendar = Calendar.getInstance();        
+        jycAno.setEndYear(calendar.get(Calendar.YEAR));
+        jycAno.setStartYear(1000);
+    }
 
     private Boolean validarLlenado() {
-        return txtISBN.getText().isEmpty() || txtTitulo.getText().isEmpty() || txtAno.getText().isEmpty() || (cboArea.getSelectedIndex() == -1) || (cboAutor.getSelectedIndex() == -1) || (cboEditorial.getSelectedIndex() == -1);
+        return txtISBN.getText().isEmpty() || txtTitulo.getText().isEmpty() || (cboArea.getSelectedIndex() == -1) || (cboAutor.getSelectedIndex() == -1) || (cboEditorial.getSelectedIndex() == -1);
     }
 
     private void setear() {
         objL = new clsLibro();
         objL.setIsbn(txtISBN.getText());
         objL.setTitulo(txtTitulo.getText());
-        objL.setFechapub(Integer.parseInt(txtAno.getText()));
-        objL.setEdicion(Integer.parseInt(txtAno.getText()));
+        objL.setFechapub(jycAno.getYear());
         objL.setEdicion(Integer.parseInt(jspEdicion.getValue().toString()));
         objL.setNumejemplar(Integer.parseInt(jspEjemplares.getValue().toString()));
 
@@ -919,7 +921,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
 
     private void habilitar() {
         txtTitulo.setEditable(true);
-        txtAno.setEditable(true);
+        jycAno.setEnabled(true);
         jspEdicion.setEnabled(true);
         cboEditorial.setEnabled(true);
         btnActualizarE.setEnabled(true);
@@ -938,7 +940,7 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
 
     private void deshabilitar() {
         txtTitulo.setEditable(false);
-        txtAno.setEditable(false);
+        jycAno.setEnabled(false);
         jspEdicion.setEnabled(false);
         cboEditorial.setEnabled(false);
         btnActualizarE.setEnabled(false);
@@ -1034,8 +1036,8 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
     private javax.swing.JList<String> jlistAutores;
     private javax.swing.JSpinner jspEdicion;
     private javax.swing.JSpinner jspEjemplares;
+    private com.toedter.calendar.JYearChooser jycAno;
     private javax.swing.JTable tblListado;
-    private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtISBN;
     private javax.swing.JTextArea txtTitulo;
     private javax.swing.JTextField txtTotalEjemplares;

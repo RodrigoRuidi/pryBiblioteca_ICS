@@ -31,6 +31,8 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jcbVigencia = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,6 +55,12 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(83, 109, 254), null));
+
+        jLabel4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jLabel4.setText("Vigencia:");
+
+        jcbVigencia.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jcbVigencia.setText("Vigencia");
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jLabel1.setText("Código:");
@@ -116,9 +124,13 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
                                 .addComponent(btnBuscar))
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbVigencia))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -138,7 +150,11 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jcbVigencia))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnCerrar.setBackground(new java.awt.Color(255, 51, 51));
@@ -155,7 +171,7 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
         btnEliminar.setBackground(new java.awt.Color(236, 78, 32));
         btnEliminar.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setText("Dar de baja");
         btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(236, 78, 32)));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +270,7 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -312,7 +328,7 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminar();
+        darBaja();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -365,9 +381,11 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
                 if (Autor != null) {
                     txtNombre.setText(Autor.getNombre());
                     txtApellidos.setText(Autor.getApellidos());
+                    jcbVigencia.setSelected(Autor.getEstado());
 
                     txtNombre.requestFocus();
                     txtCodigo.setEnabled(false);
+                    jcbVigencia.setEnabled(true);
                     btnNuevo.setEnabled(false);
                     habilitar();
                 } else {
@@ -419,22 +437,22 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
         }
     }
 
-    private void eliminar() {
+    private void darBaja() {
         try {
 
             if (txtCodigo.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el código del autor a eliminar");
+                JOptionPane.showMessageDialog(this, "Ingrese el código del autor a dar de baja");
             } else {
-                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar el área ?");
+                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja el área ?");
                 objA.setCodigoaut(Integer.parseInt(txtCodigo.getText()));
                 EntidadAutor Autor = objA.consultarAutor();
 
                 if (Autor != null) {
 
                     if (confirmacion == 0) {
-                        Boolean res = objA.eliminar();
+                        Boolean res = objA.darBaja();
                         if (res) {
-                            JOptionPane.showMessageDialog(this, "Se eliminó correctamente el autor");
+                            JOptionPane.showMessageDialog(this, "Se dió de baja correctamente el autor");
                             listar();
                             limpiar();
                         }
@@ -465,6 +483,8 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
         txtNombre.setText("");
         txtApellidos.setText("");
         txtCodigo.setEnabled(true);
+        jcbVigencia.setSelected(true);
+        jcbVigencia.setEnabled(false);
 
         txtCodigo.requestFocus();
         btnNuevo.setText("Nuevo");
@@ -486,6 +506,7 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
         objA.setCodigoaut(Integer.parseInt(txtCodigo.getText()));
         objA.setNombre(txtNombre.getText());
         objA.setApellidos(txtApellidos.getText());
+        objA.setEstado(jcbVigencia.isSelected());
     }
     
         private void habilitar(){
@@ -555,10 +576,12 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JCheckBox jcbVigencia;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCodigo;

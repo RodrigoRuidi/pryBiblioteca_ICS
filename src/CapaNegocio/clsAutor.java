@@ -54,6 +54,7 @@ public class clsAutor extends EntidadAutor {
                 objEA.setCodigoaut(rs.getInt(1));
                 objEA.setNombre(rs.getString(2));
                 objEA.setApellidos(rs.getString(3));
+                objEA.setEstado(rs.getBoolean(4));
             }
             return objEA;
         } catch (Exception e) {
@@ -64,7 +65,7 @@ public class clsAutor extends EntidadAutor {
     public Boolean insertar() throws Exception {
         try {
 
-            SQL = "insert into autor(codigoaut, nombre, apellidos) values (" + super.getCodigoaut() + ", '" + super.getNombre() + "', '" + super.getApellidos() + "')";
+            SQL = "insert into autor(codigoaut, nombre, apellidos, estado) values (" + super.getCodigoaut() + ", '" + super.getNombre() + "', '" + super.getApellidos() + "', " + super.getEstado() + ")";
             objC.ejecutarBD(SQL);
             return true;
 
@@ -76,7 +77,7 @@ public class clsAutor extends EntidadAutor {
     public Boolean modificar() throws Exception {
         try {
 
-            SQL = "update autor set nombre = '" + super.getNombre() + "', apellidos = '" + super.getApellidos() + "' where codigoaut = " + super.getCodigoaut();
+            SQL = "update autor set nombre = '" + super.getNombre() + "', apellidos = '" + super.getApellidos() + "', estado = " + super.getEstado() + " where codigoaut = " + super.getCodigoaut();
             objC.ejecutarBD(SQL);
             return true;
         } catch (Exception e) {
@@ -84,9 +85,9 @@ public class clsAutor extends EntidadAutor {
         }
     }
 
-    public Boolean eliminar() throws Exception {
+    public Boolean darBaja() throws Exception {
         try {
-            SQL = "delete from autor where codigoaut = " + super.getCodigoaut();
+            SQL = "update autor set estado = false where codigoaut = " + super.getCodigoaut();
             objC.ejecutarBD(SQL);
             return true;
         } catch (Exception e) {
@@ -106,17 +107,19 @@ public class clsAutor extends EntidadAutor {
             modelo.addColumn("CODIGO");
             modelo.addColumn("AUTOR");
             modelo.addColumn("APELLIDOS");
+            modelo.addColumn("VIGENCIA");
 
             tblListado.setModel(modelo);
 
             while (rs.next()) {
 
-                Object datos[] = new Object[3];
+                Object datos[] = new Object[4];
 
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 4; i++) {
                     datos[0] = rs.getInt(1);
                     datos[1] = rs.getString(2);
                     datos[2] = rs.getString(3);
+                    datos[3] = rs.getString(4).equalsIgnoreCase("t") ? "Vigente" : "No vigente";
                 }
 
                 modelo.addRow(datos);
@@ -134,7 +137,7 @@ public class clsAutor extends EntidadAutor {
 
         try {
 
-            SQL = "select * from autor order by 2 asc, 3 asc";
+            SQL = "select * from autor where estado = true order by 2 asc, 3 asc";
 
             rs = objC.consultarBD(SQL);
 
@@ -143,6 +146,7 @@ public class clsAutor extends EntidadAutor {
                 objEA.setCodigoaut(rs.getInt(1));
                 objEA.setNombre(rs.getString(2));
                 objEA.setApellidos(rs.getString(3));
+                objEA.setEstado(rs.getBoolean(4));
 
                 autores.add(objEA);
             }

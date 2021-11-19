@@ -2,11 +2,8 @@ package CapaPresentacion;
 
 import CapaNegocio.Entidades.EntidadUsuario;
 import CapaNegocio.clsUsuario;
-import java.awt.Toolkit;
-import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -512,7 +509,6 @@ public class jdMantenimientoUsuario extends javax.swing.JDialog {
             objU.setNombrecompleto(txtNombre.getText());
             objU.setCargo(cboCargo.getSelectedItem().toString());
             objU.setEstado(cboEstado.getSelectedItem().toString().equalsIgnoreCase("Activo") ? true : false);
-            
             String pregunta = "";
             if (txtPregunta.getText().startsWith("¿")) {
                 pregunta = txtPregunta.getText().replace("¿", "").trim();

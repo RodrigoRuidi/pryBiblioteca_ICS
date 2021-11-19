@@ -3,13 +3,6 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<subDataset name="conexion2" uuid="2d427f3b-a230-40ad-b248-5f6dc04cf90a">
-		<queryString>
-			<![CDATA[select L.nombre || ' ' || L.apellidos as lector, count(*) as cantidad from prestamo P inner join lector L on P.dnilector = L.dnilector inner join detalle_prestamo Dp on P.codigopre = Dp.codigopre inner join libro Li on Dp.isbn = Li.isbn where P.fechapre > '06/02/2021' and P.fechapre < '06/07/2021' group by L.nombre || ' ' || L.apellidos;]]>
-		</queryString>
-		<field name="lector" class="java.lang.String"/>
-		<field name="cantidad" class="java.lang.Long"/>
-	</subDataset>
 	<parameter name="fechainicio" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -196,27 +189,6 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="323" splitType="Stretch">
-			<pie3DChart>
-				<chart>
-					<reportElement x="0" y="10" width="555" height="310" uuid="2b8e423c-ecd3-41fd-9005-21211faadd6a"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<dataset>
-						<datasetRun subDataset="conexion2" uuid="d2f92ce2-e3e4-43fb-8786-ffa4f44202ff"/>
-					</dataset>
-					<keyExpression><![CDATA[$F{lector}]]></keyExpression>
-					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
-					<labelExpression><![CDATA[$F{cantidad}.toString()]]></labelExpression>
-				</pieDataset>
-				<pie3DPlot>
-					<plot/>
-					<itemLabel/>
-				</pie3DPlot>
-			</pie3DChart>
-		</band>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
