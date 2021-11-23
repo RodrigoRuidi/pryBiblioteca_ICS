@@ -50,6 +50,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
     public static String nombreU;
     public static String cargoU;
+    int xx, xy;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1679,6 +1680,16 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         lblUsuario.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        lblUsuario.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseDragged(evt);
+            }
+        });
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblUsuarioMousePressed(evt);
+            }
+        });
 
         btnUsuarioInicio.setBackground(new java.awt.Color(255, 255, 255));
         btnUsuarioInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CapaPresentacionImagenes/iconLector.png"))); // NOI18N
@@ -2005,6 +2016,17 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jdMantenimientoUsuario objMU = new jdMantenimientoUsuario(this, true);
         objMU.setVisible(true);
     }//GEN-LAST:event_btnEditorial1ActionPerformed
+
+    private void lblUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMousePressed
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_lblUsuarioMousePressed
+
+    private void lblUsuarioMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xx, y-xy);
+    }//GEN-LAST:event_lblUsuarioMouseDragged
 
     private void deshabilitarPanelesMan() {
         panelArea.setVisible(false);

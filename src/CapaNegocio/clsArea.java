@@ -46,22 +46,22 @@ public class clsArea extends EntidadArea {
     public EntidadArea consultarArea() throws Exception {
 
         try {
-            
+
             EntidadArea objEA = null;
-            
+
             SQL = "select * from area where codigoare = " + super.getCodigoare();
             rs = objC.consultarBD(SQL);
 
             if (rs.next()) {
-                
+
                 objEA = new EntidadArea();
-                
+
                 objEA.setCodigoare(rs.getInt(1));
                 objEA.setNombre(rs.getString(2));
                 objEA.setVigencia(rs.getBoolean(3));
 
-            } 
-            
+            }
+
             return objEA;
 
         } catch (Exception e) {
@@ -158,5 +158,22 @@ public class clsArea extends EntidadArea {
         }
 
     }
-
+    
+    public int verificarNombre(String nombre) throws Exception {
+        try {
+            int cantidad = 0;
+            SQL = "select nombre from area";
+            rs = objC.consultarBD(SQL);
+            while (rs.next()) {
+                String[] nuevo = rs.getString(1).split(" - ");
+                if (rs.getString(1).equalsIgnoreCase(nombre) || nuevo[0].equalsIgnoreCase(nombre)) {
+                    cantidad = cantidad + 1;
+                }
+            }
+            return cantidad;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+    
 }

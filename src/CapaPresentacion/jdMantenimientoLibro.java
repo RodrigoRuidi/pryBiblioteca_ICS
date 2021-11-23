@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,6 +41,8 @@ public class jdMantenimientoLibro extends javax.swing.JDialog {
         validarAno();
         listar();
         deshabilitar();
+        this.setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")

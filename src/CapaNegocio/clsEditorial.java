@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.sql.CallableStatement;
 /**
  *
  * @author Rodrigo Ruidias
@@ -154,6 +153,21 @@ public class clsEditorial extends EntidadEditorial {
             throw new Exception(e.getMessage());
         }
 
+    }
+    
+        public Boolean verificarNombre(String nombre) throws Exception {
+        try {
+            SQL = "select nombre from editorial";
+            rs = objC.consultarBD(SQL);
+            while (rs.next()) {
+                if (rs.getString(1).equalsIgnoreCase(nombre)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
 
 }

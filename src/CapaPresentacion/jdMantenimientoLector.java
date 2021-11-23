@@ -36,6 +36,7 @@ public class jdMantenimientoLector extends javax.swing.JDialog {
         listarLector();
         limpiar();
         validarFecha();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 

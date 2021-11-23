@@ -25,6 +25,7 @@ public class jdModificarContra extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         lblCoincidencia.setVisible(false);
         deshabilitar();
+        this.setResizable(false);
     }
 
     clsUsuario objU = null;

@@ -13,6 +13,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +42,8 @@ public class jdPrestamo extends javax.swing.JDialog {
         modelo.addColumn("ISBN");
         modelo.addColumn("TITULO");
         deshabilitar();
+        this.setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
     clsLector objLector = null;

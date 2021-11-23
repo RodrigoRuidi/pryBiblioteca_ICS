@@ -48,6 +48,7 @@ public class jdDevolucion extends javax.swing.JDialog {
         txtTotal.setEditable(false);
         btnActualizar.setEnabled(false);
         deshabilitar();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 

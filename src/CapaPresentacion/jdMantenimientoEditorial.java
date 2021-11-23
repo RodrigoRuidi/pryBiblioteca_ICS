@@ -23,6 +23,7 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
         listar();
         limpiar();
         deshabilitar();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
@@ -381,14 +382,20 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
             } else {
                 setear();
 
-                Boolean res = objE.insertar();
-
-                if (res) {
-                    JOptionPane.showMessageDialog(this, "Se registró correctamente la nueva editorial");
-                    listar();
-                    limpiar();
+                Boolean validacion = objE.verificarNombre(txtNombre.getText());
+                if (validacion) {
+                    JOptionPane.showMessageDialog(this, "No se puede registrar una editorial con el mismo nombre");
+                    txtNombre.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se registró la editorial, intente nuevamente");
+                    Boolean res = objE.insertar();
+
+                    if (res) {
+                        JOptionPane.showMessageDialog(this, "Se registró correctamente la nueva editorial");
+                        listar();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se registró la editorial, intente nuevamente");
+                    }
                 }
 
             }
@@ -489,14 +496,14 @@ public class jdMantenimientoEditorial extends javax.swing.JDialog {
         objE.setNombre(txtNombre.getText());
         objE.setVigencia(jcbVigencia.isSelected());
     }
-    
-        private void habilitar(){
+
+    private void habilitar() {
         txtNombre.setEditable(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
     }
-    
-    private void deshabilitar(){
+
+    private void deshabilitar() {
         txtNombre.setEditable(false);
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);

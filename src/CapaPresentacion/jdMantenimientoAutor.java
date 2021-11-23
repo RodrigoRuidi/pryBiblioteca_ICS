@@ -2,6 +2,7 @@ package CapaPresentacion;
 
 import CapaNegocio.Entidades.EntidadAutor;
 import CapaNegocio.clsAutor;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,8 @@ public class jdMantenimientoAutor extends javax.swing.JDialog {
         limpiar();
         listar();
         deshabilitar();
+        this.setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
     clsAutor objA = null;

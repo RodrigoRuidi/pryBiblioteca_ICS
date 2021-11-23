@@ -7,6 +7,7 @@ package CapaPresentacion;
 
 import CapaNegocio.Entidades.EntidadArea;
 import CapaNegocio.clsArea;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -28,6 +29,7 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
         limpiar();
         listar();
         deshabilitar();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 
@@ -387,15 +389,33 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Ingrese todos los campos");
             } else {
                 setear();
+                int verificar = objA.verificarNombre(txtNombre.getText());
+                System.out.println("Cantidad" + verificar);
+                String nuevoNombre;
+                if (verificar > 0) {
 
-                Boolean res = objA.insertar();
+                    nuevoNombre = txtNombre.getText() + " - " + (verificar + 1);
+                    objA.setNombre(nuevoNombre);
+                    Boolean res = objA.insertar();
 
-                if (res) {
-                    JOptionPane.showMessageDialog(this, "Se registró correctamente la nueva área");
-                    listar();
-                    limpiar();
+                    if (res) {
+                        JOptionPane.showMessageDialog(this, "Se registró correctamente la nueva área");
+                        listar();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se registró el área, intente nuevamente");
+                    }
+
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se registró el área, intente nuevamente");
+                    Boolean res = objA.insertar();
+
+                    if (res) {
+                        JOptionPane.showMessageDialog(this, "Se registró correctamente la nueva área");
+                        listar();
+                        limpiar();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se registró el área, intente nuevamente");
+                    }
                 }
 
             }
@@ -496,14 +516,14 @@ public class jdMantenimientoArea extends javax.swing.JDialog {
         objA.setNombre(txtNombre.getText());
         objA.setVigencia(jcbVigencia.isSelected());
     }
-    
-    private void habilitar(){
+
+    private void habilitar() {
         txtNombre.setEditable(true);
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
     }
-    
-    private void deshabilitar(){
+
+    private void deshabilitar() {
         txtNombre.setEditable(false);
         btnModificar.setEnabled(false);
         btnEliminar.setEnabled(false);

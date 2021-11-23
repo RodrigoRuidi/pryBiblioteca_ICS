@@ -21,6 +21,7 @@ public class jdMantenimientoUsuario extends javax.swing.JDialog {
         setTitle("Mantenimiento usuario");
         listarUsuario();
         limpiar();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 

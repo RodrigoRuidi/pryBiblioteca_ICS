@@ -25,7 +25,7 @@ public class jdRegistroUsuario extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         cboCargo.setEnabled(false);
         cboEstado.setEnabled(false);
-
+        this.setResizable(false);
     }
 
     clsUsuario objU = null;

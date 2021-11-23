@@ -48,6 +48,7 @@ public class jdPago extends javax.swing.JDialog {
         limpiarP();
         deshabilitar();
         llenarComboMotivo();
+        this.setResizable(false);
         setIconImage(new ImageIcon(getClass().getResource("/Recursos/iconSystem.png")).getImage());
     }
 

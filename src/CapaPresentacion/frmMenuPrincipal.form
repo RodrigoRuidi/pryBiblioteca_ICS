@@ -2768,6 +2768,10 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="lblUsuarioMouseDragged"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblUsuarioMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnUsuarioInicio">
           <Properties>
